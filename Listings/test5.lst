@@ -1,0 +1,44 @@
+C51 COMPILER V9.56.0.0   TEST5                                                             06/14/2017 11:54:29 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE TEST5
+OBJECT MODULE PLACED IN .\Objects\test5.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE test5.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\tes
+                    -t5.lst) TABS(2) OBJECT(.\Objects\test5.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit ldr=P3^4;
+   3          sbit ir=P3^5;
+   4          
+   5          void main(void)
+   6          {
+   7   1       TMOD=0x44;
+   8   1       TH1=0;
+   9   1       TL1=0;
+  10   1       TH0=0;
+  11   1       TL0=0;
+  12   1       TR0=1;
+  13   1       TR1=1;
+  14   1       P0=TL0;
+  15   1        while(1)
+  16   1        { P0=TL0;
+  17   2          P3=TL1;
+  18   2        }
+  19   1      }
+  20           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     27    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

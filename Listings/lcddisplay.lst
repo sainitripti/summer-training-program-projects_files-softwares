@@ -1,0 +1,166 @@
+C51 COMPILER V9.56.0.0   LCDDISPLAY                                                        07/14/2017 02:42:08 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCDDISPLAY
+OBJECT MODULE PLACED IN .\Objects\lcddisplay.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lcddisplay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\lcddisplay.lst) TABS(2) OBJECT(.\Objects\lcddisplay.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit RS=P0^0;
+   3          sbit E=P0^1;
+   4          sbit led2=P3^5;
+   5          unsigned int l=45,w=5.0;
+   6          void delay();
+   7          void cmdtolcd(unsigned char);
+   8          void datatolcd(char ar[]);
+   9          
+  10          void main(void)
+  11          {
+  12   1      while(1)
+  13   1      {
+  14   2          
+  15   2              
+  16   2          if(!led2)
+  17   2          {
+  18   3          cmdtolcd(0x38); 
+  19   3          delay();
+  20   3          cmdtolcd(0x0E);
+  21   3          delay();
+  22   3          cmdtolcd(0x01);
+  23   3          delay();
+  24   3          cmdtolcd(0x81);
+  25   3          delay();
+  26   3          
+  27   3           if(l>45&&l<=47)
+  28   3           { if(w<=2.0)
+  29   4              datatolcd("seeyourdoc");
+  30   4             else if(w>2&&w<=2.2)
+  31   4               datatolcd("criticalhealth");
+  32   4             else if(w>2.2&&w<=2.4)
+  33   4               datatolcd("underweight");
+  34   4             else if(w>2.4&&w<=2.8)
+  35   4               datatolcd("normal");
+  36   4             else if(w>2.8&&w<=3.2)
+  37   4               datatolcd("overweight");
+  38   4             else if(w>3.2&&w<=3.5)
+  39   4               datatolcd("criticalhealth");
+  40   4             if(w>=3.5)
+  41   4              datatolcd("seeyourdoc");
+  42   4           }
+  43   3           else if(l>47&&l<=49)
+  44   3           { if(w<=2.3)
+  45   4              datatolcd("seeyourdoc");
+  46   4             else if(w>2.3&&w<=2.5)
+  47   4               datatolcd("criticalhealth");
+  48   4             else if(w>2.5&&w<=2.7)
+  49   4               datatolcd("underweight");
+  50   4             else if(w>2.7&&w<=3.5)
+  51   4               datatolcd("normal");
+  52   4             else if(w>3.5&&w<=3.8)
+  53   4               datatolcd("overweight");
+  54   4             else if(w>3.8&&w<=4.2)
+C51 COMPILER V9.56.0.0   LCDDISPLAY                                                        07/14/2017 02:42:08 PAGE 2   
+
+  55   4               datatolcd("criticalhealth");
+  56   4             if(w>=4.2)
+  57   4              datatolcd("seeyourdoc");
+  58   4           }
+  59   3            else if(l>49&&l<=51)
+  60   3           { if(w<=2.6)
+  61   4              datatolcd("seeyourdoc");
+  62   4             else if(w>2.6&&w<=2.8)
+  63   4               datatolcd("criticalhealth");
+  64   4             else if(w>2.8&&w<=3.0)
+  65   4               datatolcd("underweight");
+  66   4             else if(w>3.0&&w<=3.7)
+  67   4               datatolcd("normal");
+  68   4             else if(w>3.7&&w<=4.0)
+  69   4               datatolcd("overweight");
+  70   4             else if(w>4.0&&w<=4.5)
+  71   4               datatolcd("criticalhealth");
+  72   4             if(w>=4.5)
+  73   4              datatolcd("seeyourdoc");
+  74   4           }
+  75   3           else if(l>51&&l<=53)
+  76   3           { if(w<=2.9)
+  77   4              datatolcd("seeyourdoc");
+  78   4             else if(w>2.9&&w<=3.2)
+  79   4               datatolcd("criticalhealth");
+  80   4             else if(w>3.2&&w<=3.5)
+  81   4               datatolcd("underweight");
+  82   4             else if(w>3.5&&w<=4.2)
+  83   4               datatolcd("normal");
+  84   4             else if(w>4.2&&w<=4.6)
+  85   4               datatolcd("overweight");
+  86   4             else if(w>4.6&&w<=5.0)
+  87   4               datatolcd("criticalhealth");
+  88   4             if(w>=5.0)
+  89   4              datatolcd("seeyourdoc");
+  90   4           }
+  91   3           else if(l>53&&l<=55)
+  92   3           { if(w<=3.3)
+  93   4              datatolcd("seeyourdoc");
+  94   4             else if(w>3.3&&w<=3.6)
+  95   4               datatolcd("criticalhealth");
+  96   4             else if(w>3.6&&w<=3.9)
+  97   4               datatolcd("underweight");
+  98   4             else if(w>3.9&&w<=4.7)
+  99   4               datatolcd("normal");
+ 100   4             else if(w>4.7&&w<=5.2)
+ 101   4               datatolcd("overweight");
+ 102   4             else if(w>5.2&&w<=5.7)
+ 103   4               datatolcd("criticalhealth");
+ 104   4             if(w>=5.7)
+ 105   4              datatolcd("seeyourdoc");
+ 106   4           }
+ 107   3           }
+ 108   2          delay();
+ 109   2          delay();
+ 110   2          delay();
+ 111   2         }
+ 112   1        
+ 113   1       } 
+ 114          
+ 115          void cmdtolcd(unsigned char cmd)
+ 116          { P2=cmd;
+C51 COMPILER V9.56.0.0   LCDDISPLAY                                                        07/14/2017 02:42:08 PAGE 3   
+
+ 117   1        RS=0;
+ 118   1        E=1;
+ 119   1        delay();
+ 120   1        E=0;
+ 121   1      }
+ 122          
+ 123          void datatolcd(char ar[12])
+ 124          {  int i,info;
+ 125   1        for(i=0;ar[i]!='\0';i++)
+ 126   1        { info=ar[i];
+ 127   2          P2=info;
+ 128   2          RS=1;
+ 129   2          E=1;
+ 130   2          delay();
+ 131   2          E=0;
+ 132   2        }
+ 133   1      }
+ 134          
+ 135          void delay()
+ 136          { unsigned int j;
+ 137   1        for(j=0;j<25000;j++);
+ 138   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1805    ----
+   CONSTANT SIZE    =     56    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

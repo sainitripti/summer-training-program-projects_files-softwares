@@ -1,0 +1,76 @@
+C51 COMPILER V9.56.0.0   ULTRASONICSENSOR1                                                 07/13/2017 18:24:16 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ULTRASONICSENSOR1
+OBJECT MODULE PLACED IN .\Objects\ultrasonicsensor1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ultrasonicsensor1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\ultrasonicsensor1.lst) TABS(2) OBJECT(.\Objects\ultrasonicsensor1.obj)
+
+line level    source
+
+   1          #include<REG51.h>
+   2          
+   3          sbit trig=P0^5;
+   4              char str[5];
+   5              int i,j;
+   6          
+   7          void main(void){
+   8   1        unsigned int target_range=0,timer_val;
+   9   1        P3|=0x04;   //P3.2 as INPUT
+  10   1        while(1){
+  11   2          TMOD=0x0l;
+  12   2          TH0=0xFF;TL0=0xF5;
+  13   2          trig=1;
+  14   2          TR0=1;
+  15   2          while(!TF0);
+  16   2          TR0=0;
+  17   2          TF0=0;
+  18   2          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  19   2          TH0=0x00; TL0=0x00;
+  20   2          TR0=1;    //timer0 run enabled
+  21   2          trig=0;
+  22   2          
+  23   2          while(!INT0);
+  24   2          while (INT0);
+  25   2          TR0=0;
+  26   2          timer_val=TH0<<8|TL0;
+  27   2          if(timer_val<35000)
+  28   2            target_range=timer_val*0.01860775;
+  29   2          else
+  30   2            target_range=0; // indicates that there is no obstacle in front of the sensor
+  31   2         
+  32   2          for(i=0;i<5;i++)
+  33   2           {
+  34   3           str[i]=target_range%10;
+  35   3            target_range= target_range/10;
+  36   3           }
+  37   2        TMOD=0x20;   
+  38   2          TH1=0XFD; 
+  39   2          SCON=0X50; 
+  40   2          TR1=1;
+  41   2              for(j=4;j>=0;j--)
+  42   2                  {     
+  43   3                     SBUF=str[j]+0x30;
+  44   3                     while(TI==0);
+  45   3                     TI=0;
+  46   3                  }
+  47   2               for(j=0;j<28000;j++);      
+  48   2      }
+  49   1      }
+  50          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    245    ----
+C51 COMPILER V9.56.0.0   ULTRASONICSENSOR1                                                 07/13/2017 18:24:16 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,169 @@
+C51 COMPILER V9.56.0.0   FOURTHDRAFT                                                       07/13/2017 17:24:44 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE FOURTHDRAFT
+OBJECT MODULE PLACED IN .\Objects\fourthdraft.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE fourthdraft.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\fourthdraft.lst) TABS(2) OBJECT(.\Objects\fourthdraft.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit trig=P0^6;
+   3          sbit led=P3^4;
+   4          sbit ldr=P0^5;           
+   5          sbit led1=P3^2;
+   6          sbit led2=P3^3;
+   7          sbit sound_sensor=P0^7;                                                                                  
+   8          
+   9          unsigned int i;
+  10          char ar1[6]=" baby";
+  11          char ar2[4]=" is";
+  12          char ar3[8]=" crying";
+  13          float w=15; //weigh
+  14          float l;  //length
+  15          int choice;
+  16          sbit RS=P0^0;
+  17          sbit E=P0^1;
+  18          void delay();
+  19          void cmdtolcd(unsigned char);
+  20          void datatolcd(char ar[]);
+  21          
+  22          void main(void)
+  23          {   
+  24   1        unsigned int target_range=0,timer_val;
+  25   1        P3|=0x04;   //P3.2 as INPUT
+  26   1        while(1){
+  27   2          TMOD=0x0l;
+  28   2          TH0=0xFF;TL0=0xF5;
+  29   2          trig=1;
+  30   2          TR0=1;
+  31   2          while(!TF0);
+  32   2          TR0=0;
+  33   2          TF0=0;
+  34   2          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  35   2          TH0=0x00; TL0=0x00;
+  36   2          TR0=1;    //timer0 run enabled
+  37   2          
+  38   2          trig=0;
+  39   2          while(!INT0);
+  40   2          while (INT0);
+  41   2          TR0=0;
+  42   2          timer_val=TH0<<8|TL0;
+  43   2          if(timer_val<35000)
+  44   2            target_range=timer_val*0.01860775;
+  45   2          else
+  46   2            target_range=0;
+  47   2          l=target_range;  
+  48   2          
+  49   2          if(ldr==0)       
+  50   2             led=0;              
+  51   2            else
+  52   2             led=1;
+  53   2            
+  54   2            
+C51 COMPILER V9.56.0.0   FOURTHDRAFT                                                       07/13/2017 17:24:44 PAGE 2   
+
+  55   2           if(sound_sensor==1)   
+  56   2            {TMOD=0x20;   
+  57   3          TH1=0XFD; 
+  58   3          SCON=0X50; 
+  59   3          TR1=1;
+  60   3        for(i=0;i<6;i++)
+  61   3          {     
+  62   4             SBUF=ar1[i];
+  63   4             while(TI==0);
+  64   4             TI=0;
+  65   4          }
+  66   3          for(i=0;i<28000;i++);
+  67   3          for(i=0;i<4;i++)
+  68   3          {     
+  69   4             SBUF=ar2[i];
+  70   4             while(TI==0);
+  71   4             TI=0;
+  72   4          }
+  73   3          for(i=0;i<28000;i++);
+  74   3          for(i=0;i<8;i++)
+  75   3          {     
+  76   4             SBUF=ar3[i];
+  77   4             while(TI==0);
+  78   4             TI=0;
+  79   4          }
+  80   3          for(i=0;i<28000;i++);
+  81   3        }
+  82   2            
+  83   2          if(!led2)
+  84   2          {
+  85   3          cmdtolcd(0x38); 
+  86   3          delay();
+  87   3          cmdtolcd(0x0E);
+  88   3          delay();
+  89   3          cmdtolcd(0x01);
+  90   3          delay();
+  91   3          cmdtolcd(0x81);
+  92   3          delay();
+  93   3          
+  94   3          if(l<25)
+  95   3          {
+  96   4            datatolcd("underweight");
+  97   4          
+  98   4         }
+  99   3          else if(l>=251  &&l<70)
+ 100   3           { 
+ 101   4             datatolcd("normal");
+ 102   4          
+ 103   4           }
+ 104   3          else if(l>=70&&l<100)
+ 105   3           { 
+ 106   4              datatolcd("overweight");
+ 107   4           }
+ 108   3           else 
+ 109   3             datatolcd("errror");
+ 110   3          delay();
+ 111   3          delay();
+ 112   3          delay();     
+ 113   3         }  
+ 114   2        }
+ 115   1      }
+ 116            
+C51 COMPILER V9.56.0.0   FOURTHDRAFT                                                       07/13/2017 17:24:44 PAGE 3   
+
+ 117          
+ 118          void cmdtolcd(unsigned char cmd)
+ 119          { P1=cmd;
+ 120   1        RS=0;
+ 121   1        E=1;
+ 122   1        delay();
+ 123   1        E=0;
+ 124   1      }
+ 125          
+ 126          void datatolcd(char ar[12])
+ 127          {  int i,info;
+ 128   1        for(i=0;ar[i]!='\0';i++)
+ 129   1        { info=ar[i];
+ 130   2          P1=info;
+ 131   2          RS=1;
+ 132   2          E=1;
+ 133   2          delay();
+ 134   2          E=0;
+ 135   2        }
+ 136   1      }
+ 137          
+ 138          void delay()
+ 139          { unsigned int j;
+ 140   1        for(j=0;j<25000;j++);
+ 141   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    582    ----
+   CONSTANT SIZE    =     37    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     30       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

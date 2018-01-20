@@ -1,0 +1,134 @@
+C51 COMPILER V9.56.0.0   FINA2                                                             07/14/2017 10:54:27 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE FINA2
+OBJECT MODULE PLACED IN .\Objects\fina2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE fina2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\fin
+                    -a2.lst) TABS(2) OBJECT(.\Objects\fina2.obj)
+
+line level    source
+
+   1          //final2.c
+   2          
+   3          #include<reg51.h>
+   4          sbit led1=P3^7;
+   5          sbit ldr=P0^6;
+   6          sbit soundsensor=P0^7;
+   7          unsigned int i;
+   8          sbit led=P3^4;
+   9          char choice;
+  10          sbit trig=P3^3;
+  11              char str[5];
+  12              int j;
+  13              char ht;
+  14              
+  15              
+  16          void calc_height(){
+  17   1        unsigned int target_range=0,timer_val;
+  18   1        P3|=0x04;   //P3.2 as INPUT
+  19   1          TMOD=0x0l;
+  20   1          TH0=0xFF;TL0=0xF5;
+  21   1          trig=1;
+  22   1          TR0=1;
+  23   1          while(!TF0);
+  24   1          TR0=0;
+  25   1          TF0=0;
+  26   1          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  27   1          TH0=0x00; TL0=0x00;
+  28   1          TR0=1;    //timer0 run enabled
+  29   1          trig=0;
+  30   1          while(!INT0);
+  31   1          while (INT0);
+  32   1          TR0=0;
+  33   1          timer_val=TH0<<8|TL0;
+  34   1          if(timer_val<35000)
+  35   1            target_range=timer_val*0.01860775;
+  36   1          else
+  37   1            target_range=0; // indicates that there is no obstacle in front of the sensor
+  38   1         
+  39   1          for(i=0;i<5;i++)
+  40   1           {
+  41   2           str[i]=target_range%10;
+  42   2            target_range= target_range/10;
+  43   2           }
+  44   1        TMOD=0x20;   
+  45   1          TH1=0XFD; 
+  46   1          SCON=0X50; 
+  47   1          TR1=1;
+  48   1              for(j=4;j>=0;j--)
+  49   1                  {     
+  50   2                     SBUF=str[j]+0x30;
+  51   2                     while(TI==0);
+  52   2                     TI=0;
+  53   2                  }
+  54   1               for(j=0;j<28000;j++);      
+C51 COMPILER V9.56.0.0   FINA2                                                             07/14/2017 10:54:27 PAGE 2   
+
+  55   1      
+  56   1      }
+  57          
+  58          void main(void)
+  59          {  while(1)
+  60   1        { here:
+  61   2        
+  62   2          TMOD=0X20;
+  63   2           SCON=0X50;
+  64   2           TH1=0xfd;
+  65   2           TR1=1;
+  66   2        while(!RI);
+  67   2           choice=SBUF;
+  68   2           RI=0;
+  69   2           if(choice=='A')
+  70   2           { 
+  71   3        
+  72   3          calc_height();
+  73   3             
+  74   3              }
+  75   2           if(choice=='B')
+  76   2           { while(1)
+  77   3             { 
+  78   4                 if(soundsensor==1)
+  79   4                 {  if(ldr)
+  80   5                      led=0;
+  81   5                    else
+  82   5                      led=1;
+  83   5         
+  84   5                   TMOD=0x20;
+  85   5                   TH1=0xFD;
+  86   5                   SCON=0x50;
+  87   5                   TR1=1;
+  88   5                   SBUF='3';
+  89   5                   while(TI==0);
+  90   5                   TI=0;
+  91   5                   for(i=0;i<28000;i++);
+  92   5                   
+  93   5                 }     
+  94   4                 
+  95   4                 if(RI)
+  96   4                 { choice=SBUF;
+  97   5                   RI=0;
+  98   5                  if(choice=='C')
+  99   5                    goto here;
+ 100   5                  }
+ 101   4              }
+ 102   3                   
+ 103   3            }
+ 104   2          
+ 105   2          }
+ 106   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    334    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.56.0.0   FINA2                                                             07/14/2017 10:54:27 PAGE 3   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

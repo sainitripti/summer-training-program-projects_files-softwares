@@ -1,0 +1,74 @@
+C51 COMPILER V9.56.0.0   MINI2                                                             06/16/2017 22:35:26 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MINI2
+OBJECT MODULE PLACED IN .\Objects\mini2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE mini2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\min
+                    -i2.lst) TABS(2) OBJECT(.\Objects\mini2.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit ldr=P0^2;
+   3          sbit led=P3^2;
+   4          sbit sound_sensor=P0^0;
+   5          unsigned int i;
+   6          char ar1[6]=" baby";
+   7          char ar2[4]=" is";
+   8          char ar3[8]=" crying";
+   9          void main(void)
+  10          { while(1)
+  11   1           {if(ldr==0)       
+  12   2           led=0;                //switch on the led
+  13   2            else
+  14   2           led=1;
+  15   2         if(sound_sensor==1)      //baby crying
+  16   2         {TMOD=0x20;   // TIMER 1 IN AUTO RELOAD MODE(for serial communication)
+  17   3          TH1=0XFD; // FOR 9600 BAUD RATE
+  18   3          SCON=0X50; //FOR SERIAL COMMUNICATION
+  19   3          TR1=1;
+  20   3        for(i=0;i<6;i++)
+  21   3          {     
+  22   4             SBUF=ar1[i];
+  23   4             while(TI==0);
+  24   4             TI=0;
+  25   4          }
+  26   3          for(i=0;i<28000;i++);
+  27   3          for(i=0;i<4;i++)
+  28   3          {     
+  29   4             SBUF=ar2[i];
+  30   4             while(TI==0);
+  31   4             TI=0;
+  32   4          }
+  33   3          for(i=0;i<28000;i++);
+  34   3          for(i=0;i<8;i++)
+  35   3          {     
+  36   4             SBUF=ar3[i];
+  37   4             while(TI==0);
+  38   4             TI=0;
+  39   4          }
+  40   3          for(i=0;i<28000;i++);
+  41   3          }} }
+  42          
+  43              
+  44              
+  45              
+  46              
+  47              
+  48              
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    190    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.56.0.0   MINI2                                                             06/16/2017 22:35:26 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     20    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

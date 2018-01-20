@@ -1,0 +1,204 @@
+C51 COMPILER V9.56.0.0   START                                                             07/13/2017 17:07:07 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE START
+OBJECT MODULE PLACED IN .\Objects\start.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE start.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\sta
+                    -rt.lst) TABS(2) OBJECT(.\Objects\start.obj)
+
+line level    source
+
+   1            #include<reg51.h>
+   2            sbit led=P0^5;
+   3            sbit ldr=P0^6;
+   4            sbit sound_sensor=P0^7;
+   5            unsigned int i,a=2;
+   6            char ar1[6]=" baby";
+   7          char ar2[4]=" is";
+   8          char ar3[8]=" crying";
+   9          float w=15; //weigh
+  10          float l=30;
+  11          
+  12          sbit trig=P3^0;
+  13              char str[5];
+  14              int j;
+  15              sbit led1=P3^4;
+  16              sbit led2=P3^5;
+  17              sbit led3=P3^6;
+  18              char ht;
+  19              sbit RS=P0^0;
+  20          sbit E=P0^1;
+  21          void delay();
+  22          void cmdtolcd(unsigned char);
+  23          void datatolcd(char ar[]);
+  24          
+  25          
+  26          void calc_height(){
+  27   1        unsigned int target_range=0,timer_val;
+  28   1        P3|=0x04;   //P3.2 as INPUT
+  29   1          TMOD=0x0l;
+  30   1          TH0=0xFF;TL0=0xF5;
+  31   1          trig=1;
+  32   1          TR0=1;
+  33   1          while(!TF0);
+  34   1          TR0=0;
+  35   1          TF0=0;
+  36   1          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  37   1          TH0=0x00; TL0=0x00;
+  38   1          TR0=1;    //timer0 run enabled
+  39   1          trig=0;
+  40   1          while(!INT0);
+  41   1          while (INT0);
+  42   1          TR0=0;
+  43   1          timer_val=TH0<<8|TL0;
+  44   1          if(timer_val<35000)
+  45   1            target_range=timer_val*0.01860775;
+  46   1          else
+  47   1            target_range=0; // indicates that there is no obstacle in front of the sensor
+  48   1         l=target_range;
+  49   1          for(i=0;i<5;i++)
+  50   1           {
+  51   2           str[i]=target_range%10;
+  52   2            target_range= target_range/10;
+  53   2           }
+  54   1        TMOD=0x20;   
+C51 COMPILER V9.56.0.0   START                                                             07/13/2017 17:07:07 PAGE 2   
+
+  55   1          TH1=0XFD; 
+  56   1          SCON=0X50; 
+  57   1          TR1=1;
+  58   1              for(j=4;j>=0;j--)
+  59   1                  {     
+  60   2                     SBUF=str[j]+0x30;
+  61   2                     while(TI==0);
+  62   2                     TI=0;
+  63   2                  }
+  64   1               for(j=0;j<28000;j++);      
+  65   1      
+  66   1      }
+  67            void main()
+  68            {  while(1)
+  69   1      {  if(ldr)
+  70   2           led2=1;
+  71   2          else if(!ldr)
+  72   2            led2=0;  
+  73   2          
+  74   2          
+  75   2         if(sound_sensor==1)   
+  76   2            {TMOD=0x20;   
+  77   3          TH1=0XFD; 
+  78   3          SCON=0X50; 
+  79   3          TR1=1;
+  80   3        for(i=0;i<6;i++)
+  81   3          {     
+  82   4             SBUF=ar1[i];
+  83   4             while(TI==0);
+  84   4             TI=0;
+  85   4          }
+  86   3          for(i=0;i<28000;i++);
+  87   3          for(i=0;i<4;i++)
+  88   3          {     
+  89   4             SBUF=ar2[i];
+  90   4             while(TI==0);
+  91   4             TI=0;
+  92   4          }
+  93   3          for(i=0;i<28000;i++);
+  94   3          for(i=0;i<8;i++)
+  95   3          {     
+  96   4             SBUF=ar3[i];
+  97   4             while(TI==0);
+  98   4             TI=0;
+  99   4          }
+ 100   3          for(i=0;i<28000;i++);
+ 101   3        }
+ 102   2      
+ 103   2        
+ 104   2        TMOD=0X20;
+ 105   2           SCON=0X50;
+ 106   2           TH1=0xfd;
+ 107   2           TR1=1;
+ 108   2           while(!RI);
+ 109   2           ht=SBUF;
+ 110   2           RI=0;
+ 111   2           if(ht=='A')
+ 112   2           { led1=0;
+ 113   3        
+ 114   3           calc_height();
+ 115   3           }
+ 116   2         
+C51 COMPILER V9.56.0.0   START                                                             07/13/2017 17:07:07 PAGE 3   
+
+ 117   2        if(led3==0)
+ 118   2           { cmdtolcd(0x38);  
+ 119   3          delay();
+ 120   3          cmdtolcd(0x0E);
+ 121   3          delay();
+ 122   3          cmdtolcd(0x01);
+ 123   3          delay();
+ 124   3          cmdtolcd(0x81);
+ 125   3          delay();
+ 126   3          
+ 127   3          if(l<15)
+ 128   3          {
+ 129   4            datatolcd("underweight");
+ 130   4          
+ 131   4         }
+ 132   3          else if(l>=15 &&l<30)
+ 133   3           { 
+ 134   4             datatolcd("normal");
+ 135   4          
+ 136   4           }
+ 137   3          else if(l>=30&&l<45)
+ 138   3           { 
+ 139   4              datatolcd("overweight");
+ 140   4           }
+ 141   3           else 
+ 142   3             datatolcd("errror");
+ 143   3          delay();
+ 144   3          delay();
+ 145   3          delay();
+ 146   3         }
+ 147   2        }
+ 148   1        }
+ 149            
+ 150            
+ 151          void cmdtolcd(unsigned char cmd)
+ 152          { P2=cmd;
+ 153   1        RS=0;
+ 154   1        E=1;
+ 155   1        delay();
+ 156   1        E=0;
+ 157   1      }
+ 158          
+ 159          void datatolcd(char ar[12])
+ 160          {  int i,info;
+ 161   1        for(i=0;ar[i]!='\0';i++)
+ 162   1        { info=ar[i];
+ 163   2          P2=info;
+ 164   2          RS=1;
+ 165   2          E=1;
+ 166   2          delay();
+ 167   2          E=0;
+ 168   2        }
+ 169   1      }
+ 170          
+ 171          void delay()
+ 172          { unsigned int j;
+ 173   1        for(j=0;j<25000;j++);
+ 174   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    737    ----
+C51 COMPILER V9.56.0.0   START                                                             07/13/2017 17:07:07 PAGE 4   
+
+   CONSTANT SIZE    =     37    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     38       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

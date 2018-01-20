@@ -1,0 +1,90 @@
+C51 COMPILER V9.56.0.0   TEST14                                                            06/15/2017 22:33:32 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE TEST14
+OBJECT MODULE PLACED IN .\Objects\test14.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE test14.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\te
+                    -st14.lst) TABS(2) OBJECT(.\Objects\test14.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          
+   3          sbit RS=P2^0;
+   4          sbit E=P2^1;
+   5          void delay();
+   6          void cmdtolcd(unsigned char);
+   7          void datatolcd(unsigned char);
+   8          int x,k;
+   9          
+  10          void main()
+  11          { char AR[25];
+  12   1        
+  13   1          cmdtolcd(0x38);
+  14   1          delay();
+  15   1          cmdtolcd(0x0E);
+  16   1          delay();
+  17   1          cmdtolcd(0x01);
+  18   1          delay();
+  19   1          cmdtolcd(0x80);
+  20   1          delay();
+  21   1        
+  22   1           x=0;
+  23   1           TMOD=0x20;   
+  24   1           TH1=0XFD;
+  25   1           SCON=0X50; 
+  26   1           TR1=1;
+  27   1          do{
+  28   2           while(RI==0);
+  29   2           SBUF=AR[x++];
+  30   2           RI=0; 
+  31   2          }while(AR[x]!='0');
+  32   1          
+  33   1          for(k=0;k<x+1;k++)
+  34   1          {
+  35   2           datatolcd(AR[k]);
+  36   2           delay();
+  37   2      
+  38   2          }
+  39   1        
+  40   1      }
+  41          
+  42          void cmdtolcd(unsigned char cmd)
+  43          { P1=cmd;
+  44   1        RS=0;
+  45   1        E=1;
+  46   1        delay();
+  47   1        E=0;
+  48   1      }
+  49          
+  50          void datatolcd(unsigned char info)
+  51          {  
+  52   1        
+  53   1          P1=info;
+  54   1          RS=1;
+C51 COMPILER V9.56.0.0   TEST14                                                            06/15/2017 22:33:32 PAGE 2   
+
+  55   1          E=1;
+  56   1          delay();
+  57   1          E=0;
+  58   1        
+  59   1      }
+  60          
+  61          void delay()
+  62          { unsigned int j;
+  63   1        for(j=0;j<5000;j++);
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    169    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4      25
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,140 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        07/10/2017  07:48:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\ultra.obj TO .\Objects\ultra1 PRINT (.\Listings\ultra1.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\ultra.obj (ULTRA)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLCMP)
+
+
+LINK MAP OF MODULE:  .\Objects\ultra1 (ULTRA)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     01E9H     UNIT         ?C?LIB_CODE
+            CODE    09E9H     007EH     UNIT         ?PR?MAIN?ULTRA
+            CODE    0A67H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\ultra1 (ULTRA)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?ULTRA
+
+?PR?MAIN?ULTRA                 0008H    0002H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\ultra1 (ULTRA)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ULTRA
+  C:0000H         SYMBOL        _ICE_DUMMY_
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/10/2017  07:48:25  PAGE 2
+
+
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  B:00B0H.2       PUBLIC        INT0
+  C:09E9H         PUBLIC        main
+  D:0089H         PUBLIC        TMOD
+  B:00B0H.3       PUBLIC        led
+  B:0080H.5       PUBLIC        trig
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  -------         PROC          MAIN
+  -------         DO            
+  D:0082H         SYMBOL        target_range
+  D:0008H         SYMBOL        timer_val
+  -------         ENDDO         
+  C:09E9H         LINE#         5
+  C:09E9H         LINE#         6
+  C:09ECH         LINE#         7
+  C:09EFH         LINE#         8
+  C:09EFH         LINE#         9
+  C:09F2H         LINE#         10
+  C:09F8H         LINE#         11
+  C:09FAH         LINE#         12
+  C:09FCH         LINE#         13
+  C:09FFH         LINE#         14
+  C:0A01H         LINE#         15
+  C:0A03H         LINE#         16
+  C:0A06H         LINE#         17
+  C:0A0BH         LINE#         18
+  C:0A0DH         LINE#         20
+  C:0A0FH         LINE#         21
+  C:0A12H         LINE#         22
+  C:0A15H         LINE#         23
+  C:0A17H         LINE#         24
+  C:0A21H         LINE#         25
+  C:0A33H         LINE#         26
+  C:0A4FH         LINE#         28
+  C:0A54H         LINE#         30
+  C:0A5FH         LINE#         31
+  C:0A63H         LINE#         33
+  C:0A65H         LINE#         34
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        ULTRA
+
+  -------         MODULE        ?C?FPMUL
+  C:0800H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FCAST
+  C:0910H         PUBLIC        ?C?FCASTC
+  C:090BH         PUBLIC        ?C?FCASTI
+  C:0906H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0944H         PUBLIC        ?C?CASTF
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/10/2017  07:48:25  PAGE 3
+
+
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?LNEG
+  C:09C5H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?SLCMP
+  C:09D3H         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 007EH BYTE ( 6%) *
+******************************************************************************
+
+Program Size: data=11.0 xdata=0 code=630
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

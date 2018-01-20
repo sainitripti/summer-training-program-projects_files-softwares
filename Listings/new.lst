@@ -1,0 +1,90 @@
+C51 COMPILER V9.56.0.0   NEW                                                               07/13/2017 18:15:23 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE NEW
+OBJECT MODULE PLACED IN .\Objects\new.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE new.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\new.l
+                    -st) TABS(2) OBJECT(.\Objects\new.obj)
+
+line level    source
+
+   1          #include<REG51.h>
+   2          
+   3          sbit trig=P3^4;
+   4              char str[5];
+   5              int i,j;
+   6              sbit led=P3^3;
+   7              char ht ;
+   8          
+   9          void calc_height(){
+  10   1        unsigned int target_range=0,timer_val;
+  11   1        P3|=0x04;   //P3.2 as INPUT
+  12   1          TMOD=0x0l;
+  13   1          TH0=0xFF;TL0=0xF5;
+  14   1          trig=1;
+  15   1          TR0=1;
+  16   1          while(!TF0);
+  17   1          TR0=0;
+  18   1          TF0=0;
+  19   1          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  20   1          TH0=0x00; TL0=0x00;
+  21   1          TR0=1;    //timer0 run enabled
+  22   1          trig=0;
+  23   1          while(!INT0);
+  24   1          while (INT0);
+  25   1          TR0=0;
+  26   1          timer_val=TH0<<8|TL0;
+  27   1          if(timer_val<35000)
+  28   1            target_range=timer_val*0.01860775;
+  29   1          else
+  30   1            target_range=0; // indicates that there is no obstacle in front of the sensor
+  31   1         
+  32   1          for(i=0;i<5;i++)
+  33   1           {
+  34   2           str[i]=target_range%10;
+  35   2            target_range= target_range/10;
+  36   2           }
+  37   1        TMOD=0x20;   
+  38   1          TH1=0XFD; 
+  39   1          SCON=0X50; 
+  40   1          TR1=1;
+  41   1              for(j=4;j>=0;j--)
+  42   1                  {     
+  43   2                     SBUF=str[j]+0x30;
+  44   2                     while(TI==0);
+  45   2                     TI=0;
+  46   2                  }
+  47   1               for(j=0;j<28000;j++);      
+  48   1      
+  49   1      }
+  50          void main(void)
+  51          { TMOD=0X20;
+  52   1           SCON=0X50;
+  53   1           TH1=0xfd;
+  54   1           TR1=1;
+C51 COMPILER V9.56.0.0   NEW                                                               07/13/2017 18:15:23 PAGE 2   
+
+  55   1           while(!RI);
+  56   1           ht=SBUF;
+  57   1           RI=0;
+  58   1           if(ht=='A')
+  59   1           { led=0;
+  60   2        
+  61   2           calc_height();
+  62   2           }
+  63   1      }
+  64          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    265    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

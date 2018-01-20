@@ -1,0 +1,195 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/17/2017  01:35:16  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\mini3.obj TO .\Objects\minipro3 PRINT (.\Listings\minipro3.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\mini3.obj (MINI3)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPCMP)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\minipro3 (MINI3)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000EH     UNIT         ?DT?MINI3
+            DATA    0016H     0007H     UNIT         _DATA_GROUP_
+            IDATA   001DH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0190H     UNIT         ?C?LIB_CODE
+            CODE    0990H     0188H     UNIT         ?PR?MAIN?MINI3
+            CODE    0B18H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0BA4H     003BH     UNIT         ?PR?_DATATOLCD?MINI3
+            CODE    0BDFH     001EH     UNIT         ?CO?MINI3
+            CODE    0BFDH     000FH     UNIT         ?PR?DELAY?MINI3
+            CODE    0C0CH     000DH     UNIT         ?C_INITSEG
+            CODE    0C19H     000CH     UNIT         ?PR?_CMDTOLCD?MINI3
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\minipro3 (MINI3)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MINI3
+  +--> ?C_INITSEG
+
+?PR?MAIN?MINI3                 -----    -----
+  +--> ?PR?_CMDTOLCD?MINI3
+  +--> ?PR?DELAY?MINI3
+  +--> ?CO?MINI3
+  +--> ?PR?_DATATOLCD?MINI3
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/17/2017  01:35:16  PAGE 2
+
+
+
+?PR?_CMDTOLCD?MINI3            -----    -----
+  +--> ?PR?DELAY?MINI3
+
+?PR?_DATATOLCD?MINI3           0016H    0007H
+  +--> ?PR?DELAY?MINI3
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\minipro3 (MINI3)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MINI3
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  C:0BFDH         PUBLIC        delay
+  B:00A0H.0       PUBLIC        RS
+  C:0990H         PUBLIC        main
+  C:0BA4H         PUBLIC        _datatolcd
+  B:00A0H.1       PUBLIC        E
+  C:0C19H         PUBLIC        _cmdtolcd
+  D:0008H         PUBLIC        l
+  D:000CH         PUBLIC        choice
+  D:000EH         PUBLIC        r
+  D:0012H         PUBLIC        w
+  -------         PROC          MAIN
+  C:0990H         LINE#         12
+  C:0990H         LINE#         13
+  C:09ABH         LINE#         14
+  C:09ABH         LINE#         15
+  C:09ABH         LINE#         16
+  C:09B0H         LINE#         17
+  C:09B3H         LINE#         18
+  C:09B8H         LINE#         19
+  C:09BBH         LINE#         20
+  C:09C0H         LINE#         21
+  C:09C3H         LINE#         22
+  C:09C8H         LINE#         23
+  C:09CBH         LINE#         25
+  C:09F3H         LINE#         26
+  C:0A0AH         LINE#         27
+  C:0A12H         LINE#         28
+  C:0A29H         LINE#         29
+  C:0A2FH         LINE#         31
+  C:0A36H         LINE#         32
+  C:0A36H         LINE#         33
+  C:0A5EH         LINE#         34
+  C:0A75H         LINE#         35
+  C:0A7DH         LINE#         36
+  C:0A94H         LINE#         37
+  C:0A9AH         LINE#         39
+  C:0AA1H         LINE#         40
+  C:0AA1H         LINE#         41
+  C:0AC9H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/17/2017  01:35:16  PAGE 3
+
+
+  C:0AE0H         LINE#         43
+  C:0AE8H         LINE#         44
+  C:0AFFH         LINE#         45
+  C:0B05H         LINE#         47
+  C:0B0CH         LINE#         48
+  C:0B0CH         LINE#         49
+  C:0B0FH         LINE#         50
+  C:0B12H         LINE#         51
+  C:0B15H         LINE#         52
+  -------         ENDPROC       MAIN
+  -------         PROC          _CMDTOLCD
+  D:0007H         SYMBOL        cmd
+  C:0C19H         LINE#         54
+  C:0C19H         LINE#         55
+  C:0C1BH         LINE#         56
+  C:0C1DH         LINE#         57
+  C:0C1FH         LINE#         58
+  C:0C22H         LINE#         59
+  C:0C24H         LINE#         60
+  -------         ENDPROC       _CMDTOLCD
+  -------         PROC          _DATATOLCD
+  D:0016H         SYMBOL        ar
+  -------         DO            
+  D:0019H         SYMBOL        i
+  D:001BH         SYMBOL        info
+  -------         ENDDO         
+  C:0BA4H         LINE#         62
+  C:0BAAH         LINE#         63
+  C:0BAAH         LINE#         64
+  C:0BC1H         LINE#         65
+  C:0BC8H         LINE#         66
+  C:0BCBH         LINE#         67
+  C:0BCDH         LINE#         68
+  C:0BCFH         LINE#         69
+  C:0BD2H         LINE#         70
+  C:0BD4H         LINE#         71
+  C:0BDEH         LINE#         72
+  -------         ENDPROC       _DATATOLCD
+  -------         PROC          DELAY
+  -------         DO            
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0BFDH         LINE#         74
+  C:0BFDH         LINE#         75
+  C:0BFDH         LINE#         76
+  C:0C0BH         LINE#         77
+  -------         ENDPROC       DELAY
+  -------         ENDMOD        MINI3
+
+  -------         MODULE        ?C?FPDIV
+  C:0803H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FPCMP
+  C:08A2H         PUBLIC        ?C?FPCMP
+  C:08A0H         PUBLIC        ?C?FPCMP3
+  -------         ENDMOD        ?C?FPCMP
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/17/2017  01:35:16  PAGE 4
+
+
+
+  -------         MODULE        ?C?CLDOPTR
+  C:0963H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0208H BYTE (25%) *
+******************************************************************************
+
+Program Size: data=30.0 xdata=0 code=1064
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,42 @@
+C51 COMPILER V9.56.0.0   SOUNDBLUETOOTH                                                    07/13/2017 22:25:36 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SOUNDBLUETOOTH
+OBJECT MODULE PLACED IN .\Objects\soundbluetooth.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE soundbluetooth.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Lis
+                    -tings\soundbluetooth.lst) TABS(2) OBJECT(.\Objects\soundbluetooth.obj)
+
+line level    source
+
+   1          //sound bluetooth
+   2          #include<reg51.h>
+   3          sbit soundsensor=P0^7;
+   4          unsigned int i;
+   5          void main(void)
+   6          { while(1)
+   7   1        {
+   8   2       TMOD=0x20;
+   9   2       TH1=0xFD;
+  10   2       SCON=0x50;
+  11   2       TR1=1;
+  12   2       SBUF='3';
+  13   2       while(TI==0);
+  14   2       TI=0;
+  15   2       for(i=0;i<28000;i++);
+  16   2       
+  17   2       }
+  18   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     45    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

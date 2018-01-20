@@ -1,0 +1,35 @@
+C51 COMPILER V9.56.0.0   LEDLDR                                                            07/13/2017 21:49:30 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LEDLDR
+OBJECT MODULE PLACED IN .\Objects\ledldr.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ledldr.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\le
+                    -dldr.lst) TABS(2) OBJECT(.\Objects\ledldr.obj)
+
+line level    source
+
+   1          // led ldr
+   2          #include<reg51.h>
+   3          sbit led=P0^5;
+   4          sbit ldr=P0^6;
+   5          void main(void)
+   6          {  
+   7   1         if(ldr)
+   8   1           led=1;
+   9   1         else
+  10   1           led=0;
+  11   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      9    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,79 @@
+C51 COMPILER V9.56.0.0   ULTRASONICSENSOR2                                                 07/11/2017 11:38:26 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ULTRASONICSENSOR2
+OBJECT MODULE PLACED IN .\Objects\ultrasonicsensor2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ultrasonicsensor2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\ultrasonicsensor2.lst) TABS(2) OBJECT(.\Objects\ultrasonicsensor2.obj)
+
+line level    source
+
+   1          #include<REG51.h>
+   2          
+   3          sbit trig=P0^5;
+   4              char str[5];
+   5              int i,j;
+   6              sbit led=P3^3;
+   7          
+   8          void calc_height(){
+   9   1        unsigned int target_range=0,timer_val;
+  10   1        P3|=0x04;   //P3.2 as INPUT
+  11   1          TMOD=0x0l;
+  12   1          TH0=0xFF;TL0=0xF5;
+  13   1          trig=1;
+  14   1          TR0=1;
+  15   1          while(!TF0);
+  16   1          TR0=0;
+  17   1          TF0=0;
+  18   1          TMOD=0x09;    //timer0 in 16 bit mode with gate enable
+  19   1          TH0=0x00; TL0=0x00;
+  20   1          TR0=1;    //timer0 run enabled
+  21   1          trig=0;
+  22   1          while(!INT0);
+  23   1          while (INT0);
+  24   1          TR0=0;
+  25   1          timer_val=TH0<<8|TL0;
+  26   1          if(timer_val<35000)
+  27   1            target_range=timer_val*0.01860775;
+  28   1          else
+  29   1            target_range=0; // indicates that there is no obstacle in front of the sensor
+  30   1         
+  31   1          for(i=0;i<5;i++)
+  32   1           {
+  33   2           str[i]=target_range%10;
+  34   2            target_range= target_range/10;
+  35   2           }
+  36   1        TMOD=0x20;   
+  37   1          TH1=0XFD; 
+  38   1          SCON=0X50; 
+  39   1          TR1=1;
+  40   1              for(j=4;j>=0;j--)
+  41   1                  {     
+  42   2                     SBUF=str[j]+0x30;
+  43   2                     while(TI==0);
+  44   2                     TI=0;
+  45   2                  }
+  46   1               for(j=0;j<28000;j++);      
+  47   1      
+  48   1      }
+  49          void main(void)
+  50          { if(!led)
+  51   1        calc_height();
+  52   1      }
+  53          
+
+C51 COMPILER V9.56.0.0   ULTRASONICSENSOR2                                                 07/11/2017 11:38:26 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    242    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

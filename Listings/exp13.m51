@@ -1,0 +1,143 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/15/2017  20:14:05  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\test13.obj TO .\Objects\exp13 PRINT (.\Listings\exp13.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\test13.obj (TEST13)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\exp13 (TEST13)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0055H     UNIT         ?PR?MAIN?TEST13
+            CODE    0855H     000FH     UNIT         ?PR?DELAY?TEST13
+            CODE    0864H     000CH     UNIT         ?PR?_CMDTOLCD?TEST13
+            CODE    0870H     000CH     UNIT         ?PR?_DATATOLCD?TEST13
+            CODE    087CH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\exp13 (TEST13)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TEST13
+
+?PR?MAIN?TEST13
+  +--> ?PR?_CMDTOLCD?TEST13
+  +--> ?PR?DELAY?TEST13
+  +--> ?PR?_DATATOLCD?TEST13
+
+?PR?_CMDTOLCD?TEST13
+  +--> ?PR?DELAY?TEST13
+
+?PR?_DATATOLCD?TEST13
+  +--> ?PR?DELAY?TEST13
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\exp13 (TEST13)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/15/2017  20:14:05  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        TEST13
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:0855H         PUBLIC        delay
+  B:0080H.0       PUBLIC        RS
+  C:0800H         PUBLIC        main
+  C:0870H         PUBLIC        _datatolcd
+  B:0080H.1       PUBLIC        E
+  C:0864H         PUBLIC        _cmdtolcd
+  -------         PROC          MAIN
+  C:0800H         LINE#         7
+  C:0800H         LINE#         8
+  C:0800H         LINE#         9
+  C:0805H         LINE#         10
+  C:0808H         LINE#         11
+  C:080DH         LINE#         12
+  C:0810H         LINE#         13
+  C:0815H         LINE#         14
+  C:0818H         LINE#         15
+  C:081DH         LINE#         16
+  C:0820H         LINE#         17
+  C:0825H         LINE#         18
+  C:0828H         LINE#         19
+  C:082DH         LINE#         20
+  C:0830H         LINE#         21
+  C:0835H         LINE#         22
+  C:0838H         LINE#         23
+  C:083DH         LINE#         24
+  C:0840H         LINE#         25
+  C:0845H         LINE#         26
+  C:0848H         LINE#         27
+  C:084DH         LINE#         28
+  C:0850H         LINE#         29
+  C:0853H         LINE#         30
+  -------         ENDPROC       MAIN
+  -------         PROC          _CMDTOLCD
+  D:0007H         SYMBOL        cmd
+  C:0864H         LINE#         33
+  C:0864H         LINE#         34
+  C:0866H         LINE#         35
+  C:0868H         LINE#         36
+  C:086AH         LINE#         37
+  C:086DH         LINE#         38
+  C:086FH         LINE#         39
+  -------         ENDPROC       _CMDTOLCD
+  -------         PROC          _DATATOLCD
+  D:0007H         SYMBOL        info
+  C:0870H         LINE#         41
+  C:0870H         LINE#         42
+  C:0870H         LINE#         43
+  C:0872H         LINE#         44
+  C:0874H         LINE#         45
+  C:0876H         LINE#         46
+  C:0879H         LINE#         47
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/15/2017  20:14:05  PAGE 3
+
+
+  C:087BH         LINE#         49
+  -------         ENDPROC       _DATATOLCD
+  -------         PROC          DELAY
+  -------         DO            
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0855H         LINE#         51
+  C:0855H         LINE#         52
+  C:0855H         LINE#         53
+  C:0863H         LINE#         54
+  -------         ENDPROC       DELAY
+  -------         ENDMOD        TEST13
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 007CH BYTE ( 6%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=139
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

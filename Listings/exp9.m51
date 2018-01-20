@@ -1,0 +1,148 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/15/2017  12:52:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\test10.obj TO .\Objects\exp9 PRINT (.\Listings\exp9.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\test10.obj (TEST10)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ILDOPTR)
+
+
+LINK MAP OF MODULE:  .\Objects\exp9 (TEST10)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0007H     UNIT         _DATA_GROUP_
+            IDATA   000FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0044H     UNIT         ?PR?_DATATOLCD?TEST10
+            CODE    0844H     0038H     UNIT         ?C?LIB_CODE
+            CODE    087CH     002EH     UNIT         ?PR?MAIN?TEST10
+            CODE    08AAH     000FH     UNIT         ?PR?DELAY?TEST10
+            CODE    08B9H     000DH     UNIT         ?CO?TEST10
+            CODE    08C6H     000CH     UNIT         ?PR?_CMDTOLCD?TEST10
+            CODE    08D2H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\exp9 (TEST10)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?TEST10
+
+?PR?MAIN?TEST10                -----    -----
+  +--> ?PR?_CMDTOLCD?TEST10
+  +--> ?PR?DELAY?TEST10
+  +--> ?CO?TEST10
+  +--> ?PR?_DATATOLCD?TEST10
+
+?PR?_CMDTOLCD?TEST10           -----    -----
+  +--> ?PR?DELAY?TEST10
+
+?PR?_DATATOLCD?TEST10          0008H    0007H
+  +--> ?PR?DELAY?TEST10
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/15/2017  12:52:00  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\exp9 (TEST10)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TEST10
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  C:08AAH         PUBLIC        delay
+  B:00A0H.0       PUBLIC        RS
+  C:087CH         PUBLIC        main
+  C:0800H         PUBLIC        _datatolcd
+  B:00A0H.1       PUBLIC        E
+  C:08C6H         PUBLIC        _cmdtolcd
+  -------         PROC          MAIN
+  C:087CH         LINE#         17
+  C:087CH         LINE#         18
+  C:087CH         LINE#         19
+  C:0881H         LINE#         20
+  C:0884H         LINE#         21
+  C:0889H         LINE#         22
+  C:088CH         LINE#         23
+  C:0891H         LINE#         24
+  C:0894H         LINE#         25
+  C:0899H         LINE#         26
+  C:089CH         LINE#         27
+  C:08A5H         LINE#         28
+  C:08A8H         LINE#         29
+  -------         ENDPROC       MAIN
+  -------         PROC          _CMDTOLCD
+  D:0007H         SYMBOL        cmd
+  C:08C6H         LINE#         32
+  C:08C6H         LINE#         33
+  C:08C8H         LINE#         34
+  C:08CAH         LINE#         35
+  C:08CCH         LINE#         36
+  C:08CFH         LINE#         37
+  C:08D1H         LINE#         38
+  -------         ENDPROC       _CMDTOLCD
+  -------         PROC          _DATATOLCD
+  D:0008H         SYMBOL        ar
+  -------         DO            
+  D:000BH         SYMBOL        i
+  D:000DH         SYMBOL        info
+  -------         ENDDO         
+  C:0800H         LINE#         40
+  C:0806H         LINE#         41
+  C:0806H         LINE#         42
+  C:080BH         LINE#         43
+  C:0825H         LINE#         44
+  C:0827H         LINE#         45
+  C:0829H         LINE#         46
+  C:082BH         LINE#         47
+  C:082EH         LINE#         48
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/15/2017  12:52:00  PAGE 3
+
+
+  C:0830H         LINE#         49
+  C:0843H         LINE#         50
+  -------         ENDPROC       _DATATOLCD
+  -------         PROC          DELAY
+  -------         DO            
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:08AAH         LINE#         52
+  C:08AAH         LINE#         53
+  C:08AAH         LINE#         54
+  C:08B8H         LINE#         55
+  -------         ENDPROC       DELAY
+  -------         ENDMOD        TEST10
+
+  -------         MODULE        ?C?ILDOPTR
+  C:0844H         PUBLIC        ?C?ILDOPTR
+  -------         ENDMOD        ?C?ILDOPTR
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 009AH BYTE ( 7%) *
+******************************************************************************
+
+Program Size: data=16.0 xdata=0 code=225
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

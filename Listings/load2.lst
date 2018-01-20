@@ -1,0 +1,64 @@
+C51 COMPILER V9.56.0.0   LOAD2                                                             07/11/2017 11:05:54 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LOAD2
+OBJECT MODULE PLACED IN .\Objects\load2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE load2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\loa
+                    -d2.lst) TABS(2) OBJECT(.\Objects\load2.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit led=P3^2;
+   3          sbit led1=P3^3;
+   4          unsigned long num;
+   5          sbit AD_DATA_PIN = P1^5; // Pin mapping of microcontroller
+   6          sbit AD_SCK_PIN = P0^0; // Pin mapping of microcontroller
+   7          
+   8          unsigned long ReadCount(void)
+   9          {
+  10   1        unsigned long Count;
+  11   1        unsigned char i;
+  12   1        AD_SCK_PIN=0; 
+  13   1        Count=0;
+  14   1        while(AD_DATA_PIN); 
+  15   1        for (i=0;i<24;i++)
+  16   1        {
+  17   2          AD_SCK_PIN=1;
+  18   2          Count=Count<<1;
+  19   2          AD_SCK_PIN=0;
+  20   2          if(AD_DATA_PIN) Count++;
+  21   2        }
+  22   1        AD_SCK_PIN=1;
+  23   1        Count=Count^0x800000;
+  24   1        AD_SCK_PIN=0;
+  25   1        return(Count);
+  26   1      }
+  27          
+  28          void main()
+  29          { while(1)
+  30   1        {
+  31   2        num=ReadCount();
+  32   2          led1=~led1;
+  33   2        if(num<1)
+  34   2          led=0;
+  35   2          else
+  36   2          led=1;
+  37   2        }
+  38   1      }
+  39            
+  40          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     94    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

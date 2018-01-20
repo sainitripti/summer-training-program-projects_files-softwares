@@ -1,0 +1,219 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        07/14/2017  10:54:27  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\fina2.obj TO .\Objects\draft1 PRINT (.\Listings\draft1.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\fina2.obj (FINA2)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLCMP)
+
+
+LINK MAP OF MODULE:  .\Objects\draft1 (FINA2)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000BH     UNIT         ?DT?FINA2
+            DATA    0013H     0002H     UNIT         _DATA_GROUP_
+            IDATA   0015H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     023EH     UNIT         ?C?LIB_CODE
+            CODE    0A3EH     00EBH     UNIT         ?PR?CALC_HEIGHT?FINA2
+            CODE    0B29H     0063H     UNIT         ?PR?MAIN?FINA2
+            CODE    0B8CH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\draft1 (FINA2)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?FINA2
+
+?PR?MAIN?FINA2                 -----    -----
+  +--> ?PR?CALC_HEIGHT?FINA2
+
+?PR?CALC_HEIGHT?FINA2          0013H    0002H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\draft1 (FINA2)
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/14/2017  10:54:27  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        FINA2
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  B:0098H.0       PUBLIC        RI
+  B:00B0H.2       PUBLIC        INT0
+  B:0098H.1       PUBLIC        TI
+  C:0B29H         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  B:00B0H.4       PUBLIC        led
+  B:00B0H.3       PUBLIC        trig
+  B:0080H.6       PUBLIC        ldr
+  B:0088H.5       PUBLIC        TF0
+  B:0080H.7       PUBLIC        soundsensor
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  D:0008H         PUBLIC        str
+  D:000DH         PUBLIC        ht
+  D:000EH         PUBLIC        i
+  D:0010H         PUBLIC        j
+  D:0012H         PUBLIC        choice
+  C:0A3EH         PUBLIC        calc_height
+  -------         PROC          CALC_HEIGHT
+  -------         DO            
+  D:0013H         SYMBOL        target_range
+  D:0082H         SYMBOL        timer_val
+  -------         ENDDO         
+  C:0A3EH         LINE#         16
+  C:0A3EH         LINE#         17
+  C:0A43H         LINE#         18
+  C:0A46H         LINE#         19
+  C:0A48H         LINE#         20
+  C:0A4EH         LINE#         21
+  C:0A50H         LINE#         22
+  C:0A52H         LINE#         23
+  C:0A55H         LINE#         24
+  C:0A57H         LINE#         25
+  C:0A59H         LINE#         26
+  C:0A5CH         LINE#         27
+  C:0A61H         LINE#         28
+  C:0A63H         LINE#         29
+  C:0A65H         LINE#         30
+  C:0A68H         LINE#         31
+  C:0A6BH         LINE#         32
+  C:0A6DH         LINE#         33
+  C:0A78H         LINE#         34
+  C:0A88H         LINE#         35
+  C:0AA8H         LINE#         37
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/14/2017  10:54:27  PAGE 3
+
+
+  C:0AADH         LINE#         39
+  C:0AB2H         LINE#         40
+  C:0AB2H         LINE#         41
+  C:0AC4H         LINE#         42
+  C:0AD3H         LINE#         43
+  C:0AE1H         LINE#         44
+  C:0AE4H         LINE#         45
+  C:0AE7H         LINE#         46
+  C:0AEAH         LINE#         47
+  C:0AECH         LINE#         48
+  C:0AF2H         LINE#         49
+  C:0AF2H         LINE#         50
+  C:0AFCH         LINE#         51
+  C:0AFFH         LINE#         52
+  C:0B01H         LINE#         53
+  C:0B13H         LINE#         54
+  C:0B28H         LINE#         56
+  -------         ENDPROC       CALC_HEIGHT
+  -------         PROC          MAIN
+  -------         DO            
+  C:0B29H         SYMBOL        here
+  -------         ENDDO         
+  C:0B29H         LINE#         58
+  C:0B29H         LINE#         59
+  C:0B29H         LINE#         60
+  C:0B29H         LINE#         62
+  C:0B2CH         LINE#         63
+  C:0B2FH         LINE#         64
+  C:0B32H         LINE#         65
+  C:0B34H         LINE#         66
+  C:0B37H         LINE#         67
+  C:0B3AH         LINE#         68
+  C:0B3CH         LINE#         69
+  C:0B41H         LINE#         70
+  C:0B41H         LINE#         72
+  C:0B44H         LINE#         74
+  C:0B44H         LINE#         75
+  C:0B49H         LINE#         76
+  C:0B49H         LINE#         77
+  C:0B49H         LINE#         78
+  C:0B4CH         LINE#         79
+  C:0B4FH         LINE#         80
+  C:0B53H         LINE#         82
+  C:0B55H         LINE#         84
+  C:0B58H         LINE#         85
+  C:0B5BH         LINE#         86
+  C:0B5EH         LINE#         87
+  C:0B60H         LINE#         88
+  C:0B63H         LINE#         89
+  C:0B66H         LINE#         90
+  C:0B68H         LINE#         91
+  C:0B7DH         LINE#         93
+  C:0B7DH         LINE#         95
+  C:0B80H         LINE#         96
+  C:0B83H         LINE#         97
+  C:0B85H         LINE#         98
+  C:0B8AH         LINE#         99
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/14/2017  10:54:27  PAGE 4
+
+
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        FINA2
+
+  -------         MODULE        ?C?FPMUL
+  C:0800H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FCAST
+  C:0910H         PUBLIC        ?C?FCASTC
+  C:090BH         PUBLIC        ?C?FCASTI
+  C:0906H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0944H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?UIDIV
+  C:09C5H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?LNEG
+  C:0A1AH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?SLCMP
+  C:0A28H         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 014EH BYTE (16%) *
+******************************************************************************
+
+Program Size: data=22.0 xdata=0 code=923
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

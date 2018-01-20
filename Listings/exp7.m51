@@ -1,0 +1,83 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/14/2017  15:11:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\test7.obj TO .\Objects\exp7 PRINT (.\Listings\exp7.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\test7.obj (TEST7)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\exp7 (TEST7)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0015H     UNIT         ?PR?MAIN?TEST7
+            CODE    0815H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\exp7 (TEST7)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TEST7
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\exp7 (TEST7)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TEST7
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  B:0098H.0       PUBLIC        RI
+  C:0800H         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:008DH         PUBLIC        TH1
+  B:0088H.6       PUBLIC        TR1
+  -------         PROC          MAIN
+  C:0800H         LINE#         3
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/14/2017  15:11:25  PAGE 2
+
+
+  C:0800H         LINE#         4
+  C:0800H         LINE#         5
+  C:0803H         LINE#         6
+  C:0806H         LINE#         7
+  C:0809H         LINE#         8
+  C:080BH         LINE#         9
+  C:080BH         LINE#         10
+  C:080EH         LINE#         11
+  C:0811H         LINE#         12
+  C:0813H         LINE#         13
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TEST7
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0015H BYTE ( 1%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=36
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

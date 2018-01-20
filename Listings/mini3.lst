@@ -1,0 +1,103 @@
+C51 COMPILER V9.56.0.0   MINI3                                                             06/17/2017 01:28:27 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MINI3
+OBJECT MODULE PLACED IN .\Objects\mini3.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE mini3.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\min
+                    -i3.lst) TABS(2) OBJECT(.\Objects\mini3.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          float w=15; //weight
+   3          float l=51;  //length
+   4          float r; //ratio
+   5          int choice;
+   6          sbit RS=P2^0;
+   7          sbit E=P2^1;
+   8          void delay();
+   9          void cmdtolcd(unsigned char);
+  10          void datatolcd(char ar[]);
+  11          
+  12          void main(void)
+  13          {   r=w/l;
+  14   1        while(1)
+  15   1        {
+  16   2          cmdtolcd(0x38); 
+  17   2          delay();
+  18   2          cmdtolcd(0x0E);
+  19   2          delay();
+  20   2          cmdtolcd(0x01);
+  21   2          delay();
+  22   2          cmdtolcd(0x81);
+  23   2          delay();
+  24   2          
+  25   2          if(l>=45&&l<50)
+  26   2          {if(r>0.2)
+  27   3            datatolcd("overweight");
+  28   3           else if(r<0.15)
+  29   3             datatolcd("underweight");
+  30   3           else
+  31   3             datatolcd("normal");
+  32   3         }
+  33   2           if(l>=50&&l<65)
+  34   2           { if(r>0.3)
+  35   3             datatolcd("overweight");
+  36   3             else if(r<0.21)
+  37   3             datatolcd("underweight");
+  38   3             else
+  39   3               datatolcd("normal");
+  40   3           }
+  41   2           if(l>=65&&l<80)
+  42   2           { if(r>0.24)
+  43   3            datatolcd("overweight");
+  44   3          else if(r<0.16)
+  45   3            datatolcd("underweight");
+  46   3          else
+  47   3            datatolcd("normal");
+  48   3           }
+  49   2          delay();
+  50   2          delay();
+  51   2          delay();
+  52   2        }}
+  53          
+  54          void cmdtolcd(unsigned char cmd)
+C51 COMPILER V9.56.0.0   MINI3                                                             06/17/2017 01:28:27 PAGE 2   
+
+  55          { P1=cmd;
+  56   1        RS=0;
+  57   1        E=1;
+  58   1        delay();
+  59   1        E=0;
+  60   1      }
+  61          
+  62          void datatolcd(char ar[12])
+  63          {  int i,info;
+  64   1        for(i=0;ar[i]!='\0';i++)
+  65   1        { info=ar[i];
+  66   2          P1=info;
+  67   2          RS=1;
+  68   2          E=1;
+  69   2          delay();
+  70   2          E=0;
+  71   2        }
+  72   1      }
+  73          
+  74          void delay()
+  75          { unsigned int j;
+  76   1        for(j=0;j<25000;j++);
+  77   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    478    ----
+   CONSTANT SIZE    =     30    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
